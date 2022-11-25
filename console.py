@@ -36,6 +36,10 @@ class HBNBCommand(cmd.Cmd):
             print(eval(argl[0])().id)
             storage.save()
 
+    def do_show(self):
+        """prints the representation of an instance
+        based on the class name and id"""
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
