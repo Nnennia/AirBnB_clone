@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """The Base model class"""
-import models
+# import models
 import uuid
 import datetime
 
@@ -21,13 +21,13 @@ class BaseModel:
                     (value, tform)
                 else:
                     self.__dict__[key] = value
-        else:
-            models.storage.new(self)
+        # else:
+        #  #   models.storage.new(self)
 
     def save(self):
         """updates the public instance attribute updated_at"""
         self.updated_at = datetime.datetime.now()
-        models.storage.new(self)
+        # models.storage.new(self)
 
     def to_dict(self):
         """returns a dictionary containing all keys/
@@ -42,3 +42,16 @@ class BaseModel:
         """prints the class name, self.id and self.dict"""
         clname = self.__class__.__name__
         return "[{}] ({}) {}".format(clname, self.id, self.__dict__)
+
+
+my_model = BaseModel()
+my_model.name = "My First Model"
+my_model.my_number = 89
+print(my_model)
+my_model.save()
+print(my_model)
+my_model_json = my_model.to_dict()
+print(my_model_json)
+print("JSON of my_model:")
+for key in my_model_json.keys():
+    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
