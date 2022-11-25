@@ -1,21 +1,30 @@
-#!/usr/bin/
+#!/usr/bin/python3
 """The console"""
 import cmd
 from models import storage
 from parse import parse
-# from models.base_model import BaseModel
-# from models.amenity import Amenity
-# from models.city import City
+from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
 from models.place import Place
-# from models.review import Review
-# from models.state import State
-# from models.user import User
+from models.review import Review
+from models.state import State
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
     """Defines the airbnb clone interpreter"""
     intro = " Welcome to HBNB shell, Type help or ? to list commands.\n"
     prompt: str = "(hbnb)"
+    __classes = {
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity"
+        "Review"
+    }
 
     def do_quit(self, args):
         """Quit command to exit the program"""
@@ -58,7 +67,6 @@ class HBNBCommand(cmd.Cmd):
     def do_destory(self, arg):
         """Delets an instance based on the class name and id"""
         pass
-
 
 
 if __name__ == "__main__":
