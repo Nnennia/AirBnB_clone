@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import re
 from shlex import split
+
+
 def parse(arg):
     curly_braces = re.search(r"\{(.*?)\}", arg)
     brackets = re.search(r"\[(.*?)\]", arg)
