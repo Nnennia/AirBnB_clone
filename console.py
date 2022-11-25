@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """The console"""
+import re
 import cmd
 from models import storage
 from parse import parse
@@ -64,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(objdict["{}.{}".format(argl[0], argl[1])])
 
-    def do_destory(self, arg):
+    def do_destroy(self, arg):
         """Delets an instance based on the class name and id"""
         arg1 = parse(arg)
         objdict = storage.all()
