@@ -17,11 +17,14 @@ class HBNBCommand(cmd.Cmd):
     intro = " Welcome to HBNB shell, Type help or ? to list commands.\n"
     prompt: str = "(hbnb)"
 
-    def do_quit(self, *args):
+    def do_quit(self, args):
         """Quit command to exit the program"""
         return True
 
-    do_EOF = do_quit
+    def do_EOF(self, arg):
+        """ EOF signal to quit program """
+        print("")
+        return True
 
     def emptyline(self):
         """Empty line should do nothing when executed"""
@@ -50,11 +53,12 @@ class HBNBCommand(cmd.Cmd):
         elif "{}.{}".format(argl[0], argl[1]) not in object:
             print("** no instance found **")
         else:
-            print(object["{}.{}".format(argl[0], argl[1])])
+            print(objdict["{}.{}".format(argl[0], argl[1])])
 
     def do_destory(self, arg):
         """Delets an instance based on the class name and id"""
         pass
+
 
 
 if __name__ == "__main__":
