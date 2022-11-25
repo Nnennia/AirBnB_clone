@@ -83,6 +83,20 @@ class HBNBCommand(cmd.Cmd):
             del objdict["{}.{}".format(arg1[0], arg1[1])]
             storage.save()
 
+    def do_all(self, arg):
+        "Prints string representation of instances"
+        arg1 = parse(arg)
+        if len(arg1) > 0 and arg1[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+
+        obj1 = []
+        for obj in storage.all().values():
+            if len(arg1) > 0 and arg1[0] == obj.__class__.__name__:
+                obj1.append(obj.__str__())
+            elif len(arg1) == 0:
+                obj1.append(obj.__str__())
+        print(obj1)
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
