@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/usr/bin/
+"""The console"""
 import cmd
 from models import storage
 from parse import parse
@@ -12,6 +13,7 @@ from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
+    """Defines the airbnb clone interpreter"""
     intro = " Welcome to HBNB shell, Type help or ? to list commands.\n"
     prompt: str = "(hbnb)"
 
@@ -36,10 +38,22 @@ class HBNBCommand(cmd.Cmd):
             print(eval(argl[0])().id)
             storage.save()
 
-    def do_show(self):
+    def do_show(self, arg):
         """prints the representation of an instance
         based on the class name and id"""
+        argl = parse(arg)
+        objdict = storage.all()
+        if len(argl) == 0:
+            print("** class doesn't exist **")
+        elif argl[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        elif "{}.{}".format(argl[0], argl[1]) not in object:
+            print("** no instance found **")
+        else:
+            print(object["{}.{}".format(argl[0], argl[1])])
 
+    def do_destory(self, arg):
+        """Delets an instance based on the class name and id"""
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

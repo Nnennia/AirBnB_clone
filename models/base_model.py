@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """The Base model class"""
-import models.engine.file_storage
+import models
 import uuid
 import datetime
 
