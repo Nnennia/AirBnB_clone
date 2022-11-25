@@ -31,11 +31,11 @@ class BaseModel:
     def to_dict(self):
         """returns a dictionary containing all keys/
         values of __dict__ of the insance"""
-        dict = self.__dict__.copy()
-        dict["create_at"] = self.created_at.isoformat()
-        dict["updated_at"] = self.updated_at.isoformat()
-        dict["__class__"] = self.__class__.__name__
-        return dict
+        rdict = self.__dict__.copy()
+        rdict["create_at"] = self.created_at.isoformat()
+        rdict["updated_at"] = self.updated_at.isoformat()
+        rdict["__class__"] = self.__class__.__name__
+        return rdict
 
     def __str__(self) -> str:
         """prints the class name, self.id and self.dict"""
@@ -44,13 +44,24 @@ class BaseModel:
 
 
 my_model = BaseModel()
-my_model.name = "My First Model"
+my_model.name = "My_First_Model"
 my_model.my_number = 89
+print(my_model.id)
 print(my_model)
-my_model.save()
-print(my_model)
+print(type(my_model.created_at))
+print("--")
 my_model_json = my_model.to_dict()
 print(my_model_json)
 print("JSON of my_model:")
 for key in my_model_json.keys():
     print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+
+print("--")
+my_new_model = BaseModel(**my_model_json)
+print(my_new_model.id)
+print(my_new_model)
+print(type(my_new_model.created_at))
+
+print("--")
+print(my_model is my_new_model)
+
