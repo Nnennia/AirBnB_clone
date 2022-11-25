@@ -17,11 +17,14 @@ class HBNBCommand(cmd.Cmd):
     intro = " Welcome to HBNB shell, Type help or ? to list commands.\n"
     prompt: str = "(hbnb)"
 
-    def do_quit(self, *args):
+    def do_quit(self, args):
         """Quit command to exit the program"""
         return True
 
-    do_EOF = do_quit
+    def do_EOF(self, arg):
+        """ EOF signal to quit program """
+        print("")
+        return True
 
     def emptyline(self):
         """Empty line should do nothing when executed"""
