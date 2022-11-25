@@ -50,10 +50,11 @@ class HBNBCommand(cmd.Cmd):
         elif "{}.{}".format(argl[0], argl[1]) not in object:
             print("** no instance found **")
         else:
-            print(object["{}.{}".format(argl[0], argl[1])])
+            print(objdict["{}.{}".format(argl[0], argl[1])])
 
     def do_destory(self, arg):
         """Delets an instance based on the class name and id"""
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
