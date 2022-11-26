@@ -123,16 +123,6 @@ class HBNBCommand(cmd.Cmd):
             except NameError:
                 print("** value missing **")
                 return False
-
-    def do_count(self, arg):
-        """Retrieve the number of intance of a class
-        Usage:<class name>.count()"""
-        argl = parse(arg)
-        count = 0
-        for obj in storage.all().values():
-            if arg[0] == obj.__class__.__name__:
-                count += 1
-        print(count)
         if len(argl) == 4:
             obj = objdict["{}.{}".format(argl[0], argl[1])]
             if argl[2] in obj.__class__.__dict__.keys():
@@ -150,6 +140,16 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = value
         storage.save()
+
+    def do_count(self, arg):
+        """Retrieve the number of intance of a class
+        Usage:<class name>.count()"""
+        argl = parse(arg)
+        count = 0
+        for obj in storage.all().values():
+            if arg[0] == obj.__class__.__name__:
+                count += 1
+        print(count)
 
 
 if __name__ == "__main__":
