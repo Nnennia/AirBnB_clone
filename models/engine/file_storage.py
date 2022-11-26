@@ -11,7 +11,7 @@ from models.amenity import Amenity
 
 
 class FileStorage:
-    """An abstract file stoarge engine."""
+    """An abstract file storage engine."""
     __file_path = "file.json"
     __objects = {}
 

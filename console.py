@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""The console"""
+"""The HBNB console"""
 import re
 import os
 import cmd
