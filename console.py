@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """The HBNB console(shell)"""
 import re
-import os
+# import os
 from shlex import split
 import cmd
 from models import storage
@@ -191,9 +191,9 @@ class HBNBCommand(cmd.Cmd):
                 count += 1
         print(count)
 
-    def do_clear(self, arg):
-        """Clears the screen"""
-        os.system("cls")
+    # def do_clear(self, arg):
+    #     """Clears the screen"""
+    #     os.system("cls")
 
 
 if __name__ == "__main__":
