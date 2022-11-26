@@ -174,6 +174,7 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def do_clear(self, arg):
+        """Clears the screen"""
         os.system("cls")
 
 
