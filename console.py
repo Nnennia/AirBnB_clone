@@ -124,6 +124,24 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
                 return False
 
+        if len(argl) == 4:
+            obj = objdict["{}.{}".format(argl[0], argl[1])]
+            if argl[2] in obj.__class__.__dict__.keys():
+                vtype = type(obj.__class__.__dict__[argl[2]])
+                obj.__dict__[argl[2]] = vtype(argl[3])
+            obj.__dict__[argl[2]] = argl[3]
+
+        elif type(eval(argl[2])) == dict:
+            obj = objdict["{}.{}".format(argl[0], argl[1])]
+            for k, value in eval(argl[2]).items():
+                if (k in obj.__class__.__dict__.keys() and
+                        type(obj.__class__.__dict__[k]) in {str, int, float}):
+                    vtype = type(obj.__class__.__dict__[k])
+                    obj.__dict__[k] = vtype(value)
+                else:
+                    obj.__dict__[k] = value
+        storage.save()
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
