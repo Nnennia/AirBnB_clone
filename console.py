@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """The console"""
 import re
+import os
 import cmd
 from models import storage
 from parse import parse
@@ -171,6 +172,9 @@ class HBNBCommand(cmd.Cmd):
             if argl[0] == obj.__class__.__name__:
                 count += 1
         print(count)
+
+    def do_clear(self, arg):
+        os.system("cls")
 
 
 if __name__ == "__main__":
