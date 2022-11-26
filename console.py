@@ -15,6 +15,7 @@ from models.user import User
 
 
 def parse(arg):
+    """parse function"""
     curly_braces = re.search(r"\{(.*?)\}", arg)
     brackets = re.search(r"\[(.*?)\]", arg)
     if curly_braces is None:
