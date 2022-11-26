@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """The HBNB console(shell)"""
 import re
-# import os
-from shlex import split
+import os
+from parse import parse
 import cmd
 from models import storage
 from models.base_model import BaseModel
@@ -14,23 +14,6 @@ from models.state import State
 from models.user import User
 
 
-def parse(arg):
-    """parse function"""
-    curly_braces = re.search(r"\{(.*?)\}", arg)
-    brackets = re.search(r"\[(.*?)\]", arg)
-    if curly_braces is None:
-        if brackets is None:
-            return [x.strip(",") for x in split(arg)]
-        else:
-            lexer = split(arg[:brackets.span([0])])
-            retl = [x.strip(",") for x in lexer]
-            retl.append(brackets.group())
-            return retl
-    else:
-        lexer = split(arg[:curly_braces.span([0])])
-        retl = [x.strip(",") for x in lexer]
-        retl.append(curly_braces.group())
-        return retl
 
 class HBNBCommand(cmd.Cmd):
     """Defines the airbnb clone interpreter"""
@@ -191,9 +174,9 @@ class HBNBCommand(cmd.Cmd):
                 count += 1
         print(count)
 
-    # def do_clear(self, arg):
-    #     """Clears the screen"""
-    #     os.system("cls")
+    def do_clear(self, arg):
+        """Clears the screen"""
+        os.system("cls")
 
 
 if __name__ == "__main__":
