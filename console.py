@@ -16,7 +16,7 @@ from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """Defines the airbnb clone interpreter"""
-    intro = " Welcome to HBNB shell, Type help or ? to list commands.\n"
+ #   intro = " Welcome to HBNB shell, Type help or ? to list commands.\n"
     prompt = "(hbnb) "
     __classes = {
         "BaseModel",
