@@ -24,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
         "State",
         "City",
         "Place",
-        "Amenity"
+        "Amenity",
         "Review"
     }
 
