@@ -14,7 +14,6 @@ from models.state import State
 from models.user import User
 
 
-
 class HBNBCommand(cmd.Cmd):
     """Defines the airbnb clone interpreter"""
     intro = " Welcome to HBNB shell, Type help or ? to list commands.\n"
@@ -178,7 +177,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = v
         storage.save()
-    
+
     def do_clear(self, arg):
         """Clears the screen"""
         os.system("cls")
