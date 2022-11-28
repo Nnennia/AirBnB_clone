@@ -68,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
         if len(argl) == 0:
             print("** class name missing **")
         elif argl[0] not in HBNBCommand.__classes:
-            print("** class doesn't exist")
+            print("** class doesn't exist **")
         else:
             print(eval(argl[0])().id)
             storage.save()
@@ -110,14 +110,14 @@ class HBNBCommand(cmd.Cmd):
         arg1 = parse(arg)
         if len(arg1) > 0 and arg1[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
-
-        obj1 = []
-        for obj in storage.all().values():
-            if len(arg1) > 0 and arg1[0] == obj.__class__.__name__:
-                obj1.append(obj.__str__())
-            elif len(arg1) == 0:
-                obj1.append(obj.__str__())
-        print(obj1)
+        else:    
+            obj1 = []
+            for obj in storage.all().values():
+                if len(arg1) > 0 and arg1[0] == obj.__class__.__name__:
+                    obj1.append(obj.__str__())
+                elif len(arg1) == 0:
+                    obj1.append(obj.__str__())
+            print(obj1)
 
     def do_count(self, arg):
         """Usage: count <class> or <class>.count()
