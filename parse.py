@@ -2,6 +2,7 @@
 from shlex import split
 import re
 
+
 def parse(arg):
     """parse function"""
     curly_braces = re.search(r"\{(.*?)\}", arg)
