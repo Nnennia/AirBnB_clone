@@ -12,7 +12,8 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-
+import shlex
+import json
 
 class HBNBCommand(cmd.Cmd):
     """Defines the airbnb clone interpreter"""
@@ -29,25 +30,42 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def default(self, arg):
-        """Generates defaults for invalid syntaxes"""
-        argdict = {
+        """ handle new ways of inputing data """
+        arg_dict = {
             "all": self.do_all,
+            "count": self.do_count,
             "show": self.do_show,
             "destroy": self.do_destroy,
-            "count": self.do_count,
             "update": self.do_update
         }
-        match = re.search(r"\.", arg)
-        if match is not None:
-            argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
-            match = re.search(r"\((.*?)\)", argl[1])
-            if match is not None:
-                command = [argl[1][:match.span()[0]], match.group()[1:-1]]
-                if command[0] in argdict.keys():
-                    call = "{} {}".format(argl[0], command[1])
-                    return argdict[command[0]](call)
-        print("*** Unknown syntax: {}".format(arg))
-        return False
+        arg = arg.strip()
+        values = arg.split(".")
+        if len(values) != 2:
+            cmd.Cmd.default(self, arg)
+            return
+        class_name = values[0]
+        command = values[1].split("(")[0]
+        line = ""
+        if (command == "update" and values[1].split("(")[1][-2] == "}"):
+            inputs = values[1].split("(")[1].split(",", 1)
+            inputs[0] = shlex.split(inputs[0])[0]
+            line = "".join(inputs)[0:-1]
+            line = class_name + " " + line
+            self.do_update2(line.strip())
+            return
+        try:
+            inputs = values[1].split("(")[1].split(",")
+            for num in range(len(inputs)):
+                if (num != len(inputs) - 1):
+                    line = line + " " + shlex.split(inputs[num])[0]
+                else:
+                    line = line + " " + shlex.split(inputs[num][0:-1])[0]
+        except IndexError:
+            inputs = ""
+            line = ""
+        line = class_name + line
+        if (command in arg_dict.keys()):
+            arg_dict[command](line.strip())
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -176,6 +194,47 @@ class HBNBCommand(cmd.Cmd):
                     obj.__dict__[k] = valtype(v)
                 else:
                     obj.__dict__[k] = v
+        storage.save()
+    
+    def do_update2(self, arg):
+        """
+        Updates an instance based on the class name and
+        id by adding or updating attribute
+        (save the change into the JSON file).
+        Structure: update [class name] [id] [dictionary]
+        """
+        if not arg:
+            print("** class name missing **")
+            return
+        my_dictionary = "{" + arg.split("{")[1]
+        my_data = shlex.split(arg)
+        storage.reload()
+        objs_dict = storage.all()
+        if my_data[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+            return
+        if (len(my_data) == 1):
+            print("** instance id missing **")
+            return
+        try:
+            key = my_data[0] + "." + my_data[1]
+            objs_dict[key]
+        except KeyError:
+            print("** no instance found **")
+            return
+        if (my_dictionary == "{"):
+            print("** attribute name missing **")
+            return
+
+        my_dictionary = my_dictionary.replace("\'", "\"")
+        my_dictionary = json.loads(my_dictionary)
+        my_instance = objs_dict[key]
+        for my_key in my_dictionary:
+            if hasattr(my_instance, my_key):
+                data_type = type(getattr(my_instance, my_key))
+                setattr(my_instance, my_key, my_dictionary[my_key])
+            else:
+                setattr(my_instance, my_key, my_dictionary[my_key])
         storage.save()
 
     def do_clear(self, arg):
