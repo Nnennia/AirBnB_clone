@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """The HBNB console(shell)"""
+import json
+import shlex
 import re
 import os
 from parse import parse
@@ -12,8 +14,6 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-import shlex
-import json
 
 class HBNBCommand(cmd.Cmd):
     """Defines the airbnb clone interpreter"""
