@@ -7,7 +7,7 @@
 
 
 <p align="center">
-  <img src="https://github.com/Nnennia/AirBnB_clone/blob/main/assets/work.png" alt="HolbertonBnB logo">
+  <img src="https://github.com/Nnennia/AirBnB_clone/blob/main/assets/work.png" alt="Map">
 </p>
 ---
 
