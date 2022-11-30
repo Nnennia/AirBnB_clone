@@ -18,13 +18,6 @@ a back-end API, and front-end interfacing in a clone of AirBnB.
 
 The project currently only implements the back-end console.
 
-## Task
-Each task is linked and will help you to:
-
-put in place a parent class (called BaseModel) to take care of the initialization, serialization and deserialization of your future instances
-
-
-
 ## Classes :cl:
 
 HolbertonBnB utilizes the following classes:
