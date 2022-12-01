@@ -195,7 +195,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = v
         storage.save()
-    
+
     def do_update2(self, arg):
         """
         Updates an instance based on the class name and
